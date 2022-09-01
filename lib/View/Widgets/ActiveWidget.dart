@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:posta/Model/OnlineFriend.dart';
 import 'package:posta/View/ChatScreen.dart';
@@ -11,7 +10,7 @@ class ActiveWidget extends StatefulWidget
 
 class ActiveWidgetState extends State <ActiveWidget>
 {
-  double w, h;
+  late double w, h;
 
   List<OnlineFriend> onlineFriends = [];
 
@@ -84,7 +83,7 @@ class ActiveWidgetState extends State <ActiveWidget>
           onTap: (){
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => ChatScreen(profileName: this.onlineFriends[idx].name, imgUrl: this.onlineFriends[idx].imageUrl)),
+              MaterialPageRoute(builder: (context) => ChatScreen(profileName: this.onlineFriends[idx].name!, imgUrl: this.onlineFriends[idx].imageUrl!)),
             );
           },
           child: Container(
@@ -100,7 +99,7 @@ class ActiveWidgetState extends State <ActiveWidget>
                       width: w*7,
                       height: w*7,
                       child: CircleAvatar(
-                        backgroundImage: NetworkImage(this.onlineFriends[idx].imageUrl),
+                        backgroundImage: NetworkImage(this.onlineFriends[idx].imageUrl!),
                       ),
                     ),
 
@@ -127,7 +126,7 @@ class ActiveWidgetState extends State <ActiveWidget>
 
                 SizedBox(width: w*1.5),
 
-                Text(this.onlineFriends[idx].name, style: TextStyle(fontSize: h*1, color: Colors.white)),
+                Text(this.onlineFriends[idx].name!, style: TextStyle(fontSize: h*1, color: Colors.white)),
 
               ],
             ),

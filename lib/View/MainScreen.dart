@@ -1,11 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:posta/AppNavigator.dart';
-import 'package:posta/AppUI.dart';
 import 'package:posta/Model/Message.dart';
 import 'package:posta/Model/OnlineFriend.dart';
 import 'package:provider/provider.dart';
-import 'package:shimmer/shimmer.dart';
 
 class MainScreen extends StatefulWidget
 {
@@ -15,9 +12,9 @@ class MainScreen extends StatefulWidget
 
 class MainScreenState extends State <MainScreen>
 {
-  double w, h;
+  late double w, h;
 
-  AppNavigator _appNavigator;
+  late AppNavigator _appNavigator;
 
   List<OnlineFriend> onlineFriends = [];
   List<Message> messages = [];
@@ -247,7 +244,7 @@ class MainScreenState extends State <MainScreen>
   Color getThemeForSelectedNavigationItem (PAGES p)
   {
     if (p.index == _appNavigator.currentPageIDX) return Colors.white;
-    else return Colors.grey[600];
+    else return Colors.grey[600]!;
   }
 
 }

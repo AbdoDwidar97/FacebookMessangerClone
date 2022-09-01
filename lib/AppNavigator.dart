@@ -41,7 +41,7 @@ class AppNavigator with ChangeNotifier
   Widget getCurrentPage () => this.navPages[navPages.length - 1];
 
   addPage (PAGES p){
-    this.navPages.add(pagesMap[p]);
+    this.navPages.add(pagesMap[p]!);
     notifyListeners();
   }
 

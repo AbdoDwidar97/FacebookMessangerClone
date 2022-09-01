@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:posta/Model/Story.dart';
 
@@ -10,7 +9,7 @@ class StoriesWidget extends StatefulWidget
 
 class StoriesWidgetState extends State <StoriesWidget>
 {
-  double w, h;
+  late double w, h;
 
   List<Story> stories = [];
 
@@ -87,7 +86,7 @@ class StoriesWidgetState extends State <StoriesWidget>
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(14),
                   image: DecorationImage(
-                    image: NetworkImage(this.stories[idx].storyImgUrl),
+                    image: NetworkImage(this.stories[idx].storyImgUrl!),
                     fit: BoxFit.cover
                   )
                 ),
@@ -112,7 +111,7 @@ class StoriesWidgetState extends State <StoriesWidget>
                                 width: w*4,
                                 height: w*4,
                                 child: CircleAvatar(
-                                  backgroundImage: NetworkImage(this.stories[idx].profileImgUrl),
+                                  backgroundImage: NetworkImage(this.stories[idx].profileImgUrl!),
                                 ),
                               ),
                             ),
@@ -134,7 +133,7 @@ class StoriesWidgetState extends State <StoriesWidget>
                     SizedBox(
                       width: w*19,
                       child: Text(
-                          this.stories[idx].profileName,
+                          this.stories[idx].profileName!,
                           style: TextStyle(
                           fontSize: h*1,
                           color: Colors.white, fontWeight: FontWeight.bold,

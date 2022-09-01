@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:posta/AppNavigator.dart';
-import 'package:posta/AppUI.dart';
 import 'package:posta/View/Widgets/ActiveWidget.dart';
 import 'package:posta/View/Widgets/StoriesWidget.dart';
 import 'package:provider/provider.dart';
@@ -14,9 +12,9 @@ class PeoplePage extends StatefulWidget
 
 class PeoplePageState extends State <PeoplePage>
 {
-  double w, h;
+  late double w, h;
 
-  AppNavigator _appNavigator;
+  late AppNavigator _appNavigator;
   int selectedWidget = 0;
 
   var searchController = TextEditingController();
@@ -99,8 +97,8 @@ class PeoplePageState extends State <PeoplePage>
 
   ColorTheme getColorTheme (int idx)
   {
-    if (this.selectedWidget == idx) return ColorTheme(containerColor: Colors.grey[900], fontColor: Colors.white);
-    else return ColorTheme(containerColor: Colors.black, fontColor: Colors.grey[500]);
+    if (this.selectedWidget == idx) return ColorTheme(containerColor: Colors.grey[900]!, fontColor: Colors.white);
+    else return ColorTheme(containerColor: Colors.black, fontColor: Colors.grey[500]!);
   }
 
   Widget getWidget (int idx)
@@ -121,6 +119,6 @@ class PeoplePageState extends State <PeoplePage>
 
 class ColorTheme
 {
-  Color containerColor, fontColor;
+  Color? containerColor, fontColor;
   ColorTheme({this.containerColor, this.fontColor});
 }

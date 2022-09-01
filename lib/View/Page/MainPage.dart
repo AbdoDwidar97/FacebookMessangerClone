@@ -1,4 +1,5 @@
-import 'package:flutter/cupertino.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:posta/AppNavigator.dart';
 import 'package:posta/AppUI.dart';
@@ -10,15 +11,18 @@ import 'package:shimmer/shimmer.dart';
 
 class MainPage extends StatefulWidget
 {
+  late final FirebaseApp firebaseApp;
+  final reference = FirebaseDatabase.instance.ref();
+
   @override
   State<StatefulWidget> createState() => MainPageState();
 }
 
 class MainPageState extends State <MainPage>
 {
-  double w, h;
+  late double w, h;
 
-  AppNavigator _appNavigator;
+  late AppNavigator _appNavigator;
 
   List<OnlineFriend> onlineFriends = [];
   List<Message> messages = [];
@@ -139,7 +143,7 @@ class MainPageState extends State <MainPage>
 
             SizedBox(height: h*1),
 
-            AppUI.textField(context, w*50, h*3, h*1.1, searchController, "Search", TextInputType.emailAddress, Colors.grey[900], false),
+            AppUI.textField(context, w*50, h*3, h*1.1, searchController, "Search", TextInputType.emailAddress, Colors.grey[900]!, false),
 
             SizedBox(height: h*1),
 
@@ -204,8 +208,8 @@ class MainPageState extends State <MainPage>
 
             ],
           ),
-          baseColor: Colors.grey[700],
-          highlightColor: Colors.grey[100],
+          baseColor: Colors.grey[700]!,
+          highlightColor: Colors.grey[100]!,
 
         ),
       );
@@ -213,7 +217,6 @@ class MainPageState extends State <MainPage>
     }else {
       return ListView.builder(
           scrollDirection: Axis.horizontal,
-          // controller: _scrollController,
           itemCount: this.onlineFriends.length,
           itemBuilder: (context, idx){
 
@@ -250,7 +253,7 @@ class MainPageState extends State <MainPage>
 
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ChatScreen(profileName: this.onlineFriends[idx].name, imgUrl: this.onlineFriends[idx].imageUrl)),
+                  MaterialPageRoute(builder: (context) => ChatScreen(profileName: this.onlineFriends[idx].name!, imgUrl: this.onlineFriends[idx].imageUrl!)),
                 );
 
               },
@@ -269,7 +272,7 @@ class MainPageState extends State <MainPage>
                           width: w*7,
                           height: w*7,
                           child: CircleAvatar(
-                            backgroundImage: NetworkImage(this.onlineFriends[idx].imageUrl),
+                            backgroundImage: NetworkImage(this.onlineFriends[idx].imageUrl!),
                           ),
                         ),
 
@@ -296,7 +299,7 @@ class MainPageState extends State <MainPage>
 
                     SizedBox(
                       width: w*7,
-                      child: Text(this.onlineFriends[idx].name, style: TextStyle(fontSize: h*1, color: Colors.white), textAlign: TextAlign.center),
+                      child: Text(this.onlineFriends[idx].name!, style: TextStyle(fontSize: h*1, color: Colors.white), textAlign: TextAlign.center),
                     ),
 
                   ],
@@ -322,7 +325,7 @@ class MainPageState extends State <MainPage>
           onTap: (){
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => ChatScreen(profileName: this.messages[idx].name, imgUrl: this.messages[idx].imageUrl)),
+              MaterialPageRoute(builder: (context) => ChatScreen(profileName: this.messages[idx].name!, imgUrl: this.messages[idx].imageUrl!)),
             );
           },
           child: Container(
@@ -339,7 +342,7 @@ class MainPageState extends State <MainPage>
                       width: w*7,
                       height: w*7,
                       child: CircleAvatar(
-                        backgroundImage: NetworkImage(this.messages[idx].imageUrl),
+                        backgroundImage: NetworkImage(this.messages[idx].imageUrl!),
                       ),
                     ),
 
@@ -349,16 +352,16 @@ class MainPageState extends State <MainPage>
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
 
-                        Text(this.messages[idx].name, style: TextStyle(fontSize: h*1.1, color: Colors.grey[300])),
+                        Text(this.messages[idx].name!, style: TextStyle(fontSize: h*1.1, color: Colors.grey[300])),
                         SizedBox(height: h*0.3),
-                        Text(this.messages[idx].lastMessage + " ${this.messages[idx].sentDate}", style: TextStyle(fontSize: h*1, color: Colors.grey[300])),
+                        Text("${this.messages[idx].lastMessage} ${this.messages[idx].sentDate}", style: TextStyle(fontSize: h*1, color: Colors.grey[300])),
                       ],
                     ),
 
                   ],
                 ),
 
-                (this.messages[idx].lastMessage.contains("Call")) ? InkWell(
+                (this.messages[idx].lastMessage!.contains("Call")) ? InkWell(
                   onTap: (){},
                   child: SizedBox(
                     width: w*5,
