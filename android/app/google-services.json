@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1066915240523",
+    "firebase_url": "https://chat-app-bce8d-default-rtdb.firebaseio.com",
+    "project_id": "chat-app-bce8d",
+    "storage_bucket": "chat-app-bce8d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1066915240523:android:eeaabcf73fa0d7c90c8bce",
+        "android_client_info": {
+          "package_name": "me.dwidar.posta"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1066915240523-2cuuv5pilbkfvai9b6kq5hp94borr3hr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "me.dwidar.posta",
+            "certificate_hash": "51b38e54934ce5567c385376a7a796bb9de1c2cf"
+          }
+        },
+        {
+          "client_id": "1066915240523-tb4c31j6l56shg3g762lj16kvg7a00a1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEUDRT8eosQQfbk4ztBsXKRkzBkAEy6eY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1066915240523-tb4c31j6l56shg3g762lj16kvg7a00a1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
