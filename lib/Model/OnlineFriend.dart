@@ -1,6 +1,6 @@
 class OnlineFriend
 {
-  String name, imageUrl;
+  String? name, imageUrl;
 
   OnlineFriend({this.name, this.imageUrl});
 

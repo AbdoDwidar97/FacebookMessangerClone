@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AppUI
@@ -15,7 +14,7 @@ class AppUI
         child: Center(
           child: TextFormField(
             validator: (val){
-              if (val.isEmpty) return "This field is required";
+              if (val.toString().isEmpty) return "This field is required";
               else return null;
             },
             obscureText: isPwd,
@@ -30,11 +29,11 @@ class AppUI
               contentPadding: EdgeInsets.all(0),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(25),
-                borderSide: BorderSide(color: Colors.grey[900]),
+                borderSide: BorderSide(color: Colors.grey[900]!),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(25),
-                borderSide: BorderSide(color: Colors.grey[900]),
+                borderSide: BorderSide(color: Colors.grey[900]!),
               ),
               errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(25),
@@ -75,7 +74,7 @@ class AppUI
           padding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 50 * 2),
           child: TextFormField(
             validator: (val){
-              if (val.isEmpty) return "This field is required";
+              if (val.toString().isEmpty) return "This field is required";
               else return null;
             },
             onChanged: (val){
@@ -95,11 +94,11 @@ class AppUI
               contentPadding: EdgeInsets.all(0),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(25),
-                borderSide: BorderSide(color: Colors.grey[900]),
+                borderSide: BorderSide(color: Colors.grey[900]!),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(25),
-                borderSide: BorderSide(color: Colors.grey[900]),
+                borderSide: BorderSide(color: Colors.grey[900]!),
               ),
               errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(25),
@@ -134,7 +133,7 @@ class AppUI
       height: iHeight,
       child: RaisedButton(
         color: btnColor,
-        onPressed: f,
+        onPressed: f(),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
@@ -157,7 +156,7 @@ class AppUI
       height: iHeight,
       child: RaisedButton(
         color: btnColor,
-        onPressed: f,
+        onPressed: f(),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
@@ -165,32 +164,6 @@ class AppUI
       ),
     );
   }
-
-  /*static void showIDialog(BuildContext context, String title, String content)
-  {
-    showAnimatedDialog(
-      context: context,
-      barrierDismissible: true,
-      builder: (BuildContext context) {
-        return ClassicGeneralDialogWidget(
-          titleText: title,
-          contentText: content,
-          positiveText: "Ok",
-          onPositiveClick: () {
-            Navigator.of(context).pop();
-          },
-          onNegativeClick: () {
-            Navigator.of(context).pop();
-          },
-        );
-      },
-      animationType: DialogTransitionType.slideFromTop,
-      curve: Curves.fastOutSlowIn,
-      duration: Duration(seconds: 1),
-    );
-
-  }*/
-
 
   static void showAlertDialog(BuildContext buildContext, double titleFontSize, double msgFontSize, String alertDialogTitle, String alertDialogMsg, Function f)
   {
