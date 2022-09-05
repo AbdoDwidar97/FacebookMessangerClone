@@ -1,13 +1,17 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:file/local.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:flutter_sound_lite/flutter_sound.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:posta/AppUI.dart';
 import 'package:posta/Model/MChatItem.dart';
 import 'package:posta/Model/firebase_models/User.dart';
+import 'package:posta/Model/firebase_models/audio.dart';
 import 'package:posta/Model/firebase_models/file_class.dart';
 import 'package:posta/Model/firebase_models/message_model2.dart';
 
@@ -24,7 +28,13 @@ class ChatScreen extends StatefulWidget
 
 class ChatScreenState extends State <ChatScreen>
 {
+  LocalFileSystem localFileSystem = LocalFileSystem();
+
+  FlutterSoundRecorder recorder = FlutterSoundRecorder();
+  // var recorder = FlutterAudioRecorder2("audio_${DateTime.now().millisecondsSinceEpoch}.mp3");
+
   final chatsRef = FirebaseDatabase.instance.ref("Chats").child("-N2mHktnqxVtFUBAo2mz");
+  bool? hasPermission;
 
   late double w, h;
   List <MChatItem> messages = [];
@@ -43,7 +53,7 @@ class ChatScreenState extends State <ChatScreen>
     _initScreen();
   }
 
-  void _initScreen()
+  void _initScreen() async
   {
     _keyboardVisibilityController.onChange.listen((event) {
       _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
@@ -182,10 +192,14 @@ class ChatScreenState extends State <ChatScreen>
 
                         SizedBox(width: w*1.5),
 
-                        InkWell(
+                        GestureDetector(
                           child: Icon(Icons.mic, color: Colors.blue[800], size: w*3),
-                          onTap: (){
-
+                          onTapDown: (_) async
+                          {
+                            // await recorder.startRecorder(toFile: );
+                          },
+                          onTapUp: (_) {
+                            _btnSendVoice();
                           },
                         ),
 
@@ -291,6 +305,53 @@ class ChatScreenState extends State <ChatScreen>
         ),
       ),
     );
+  }
+
+  void _btnSendVoice() async
+  {
+   //  var result = await recorder.stop();
+    // File file = localFileSystem.file(result!.path);
+
+    // _uploadAudioToFirebaseStorage(file);
+  }
+
+  void _uploadAudioToFirebaseStorage(File file) async
+  {
+    final _firebaseStorage = FirebaseStorage.instance;
+
+    String uploadedFileName = "audio_${DateTime.now().millisecondsSinceEpoch}";
+    await _firebaseStorage.ref()
+        .child('audio/$uploadedFileName')
+        .putFile(File(file.path));
+
+    await _sendAudioToFirebase(file, uploadedFileName);
+  }
+
+  Future<void> _sendAudioToFirebase(File file, String uploadedFileName) async
+  {
+    final _firebaseStorage = FirebaseStorage.instance;
+
+    String url = await _firebaseStorage.ref('audio').child(uploadedFileName).getDownloadURL();
+
+    await chatsRef.push().set(MessageModel2(
+        timeStamp: DateTime.now().millisecondsSinceEpoch.toString(),
+        audio: Audio(
+            name: "audio_${DateTime.now().millisecondsSinceEpoch}",
+            type: "image",
+            url: url
+        ),
+        user: User(
+            email: "eng.aboali712@gmail.com",
+            id: "2",
+            name: "AhmedAbo",
+            photo: "https://samanew.magic-chat.com/storage/users/https://samanew.magic-chat.com/storage/users/RmMLfxgFokcl4wlchfSsr9i3Z5rcj9fDtARnNDmN.png",
+            toUserId: "1",
+            type: "1",
+            userLogo: "https://samanew.magic-chat.com/storage/offices/1.jpeg",
+            userName: "سمو للسفر والسياحة"
+        )
+    ).toJson());
+
   }
 
   void _btnSend() async
